@@ -1,0 +1,16 @@
+{
+    "name": "UnityLogicGamer.Runtime",
+    "rootNamespace": "UnityLogicGamer.Runtime",
+    "references": [
+        "GUID:8f426ab7eb6659245adef86c1cc67f23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

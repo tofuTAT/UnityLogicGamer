@@ -1,0 +1,17 @@
+{
+    "name": "UnityLogicGamer.Editor",
+    "rootNamespace": "UnityLogicGamer.Editor",
+    "references": [
+        "GUID:8f426ab7eb6659245adef86c1cc67f23",
+        "GUID:70a79fce3fc10d94d86f45a7e7e90a29"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
