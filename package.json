@@ -4,6 +4,6 @@
     "displayName": "UnityLogicGamer",
     "description": "LogicGamer Unity 脚手架",
     "dependencies": {
-        "com.logicgamer.core": "https://github.com/tofuTAT/LogicGamer.Core.git#upm"
+        "com.logicgamer.core": "0.0.1"
     }
 }
