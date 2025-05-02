@@ -68,7 +68,7 @@ namespace UnityLogicGamer.Runtime
             Type start = null;
             foreach (var item in procedures)
             {
-                var type = Type.GetType(item);
+                var type = Utility.Type.Get(item);
                 if (type==null)
                 {
                     throw new InvalidOperationException($"无法找到类型: {item}");
