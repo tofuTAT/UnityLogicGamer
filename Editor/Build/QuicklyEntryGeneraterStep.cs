@@ -1,19 +1,49 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using LogicGamer.Core;
 using UnityEditor;
 using UnityEngine;
-using UnityLogicGamer.Editor.Config;
 
-namespace UnityLogicGamer.Editor.Tool
+namespace UnityLogicGamer.Editor.Build
 {
-    public static class Generater
+    [Serializable]
+    public class QuicklyEntryGeneraterStep:IBuildStep,IDrawEditorView
     {
-        public static void BuildQuickly(Dictionary<string, string> fileContents, Dictionary<Type, Assembly> typeAssemblyMap)
+        [SerializeField] private string _quicklyOutPutRoot = "Assets/QuicklyEntry";
+        
+        // 需要扫描的程序集
+        [SerializeField] private List<string> _assemblies = new List<string>()
         {
-            string outputDirectory = UnityLogicGamerEditorConfig.instance.QuicklyOutPutRoot;
+            "LogicGamer.Core",
+            "UnityLogicGamer.Runtime",
+        };
+        public void Draw(SerializedProperty property)
+        {
+            // Draw the _quicklyOutPutRoot field
+            SerializedProperty outputRootProp = property.FindPropertyRelative("_quicklyOutPutRoot");
+            EditorGUILayout.PropertyField(outputRootProp, new GUIContent("输出路径"));
+
+            // Draw the _assemblies list
+            SerializedProperty assembliesProp = property.FindPropertyRelative("_assemblies");
+            EditorGUILayout.PropertyField(assembliesProp, new GUIContent("扫描程序集列表"), true);  // 'true' will allow the list to be expandable
+        }
+        public void Build()
+        {
+            var targets = _assemblies
+                .Select(name => AppDomain.CurrentDomain.GetAssemblies()
+                    .FirstOrDefault(a => a.GetName().Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                .Where(a => a != null)
+                .ToList();
+            GeneratorTool.GenerateQuickly(targets,BuildQuickly);
+            Debug.Log("Test");
+        }
+        
+        private void BuildQuickly(Dictionary<string, string> fileContents, Dictionary<Type, Assembly> typeAssemblyMap)
+        {
+            string outputDirectory = _quicklyOutPutRoot;
 
             if (!Directory.Exists(outputDirectory))
                 Directory.CreateDirectory(outputDirectory);
@@ -35,10 +65,10 @@ namespace UnityLogicGamer.Editor.Tool
                 Debug.Log($"生成代码文件: {filePath}");
             }
 
-// asmdef 路径
+            // asmdef 路径
             string asmdefPath = Path.Combine(outputDirectory, "LogicGamer.QuicklyEntry.asmdef");
 
-// 构建新的 asmdef 数据
+            // 构建新的 asmdef 数据
             var asmdef = new AsmdefData
             {
                 name = "LogicGamer.QuicklyEntry",
@@ -75,8 +105,9 @@ namespace UnityLogicGamer.Editor.Tool
         }
 
 
+        
         [Serializable]
-        public class AsmdefData
+        private class AsmdefData
         {
             public string name;
             public string rootNamespace = "";
@@ -99,8 +130,5 @@ namespace UnityLogicGamer.Editor.Tool
                 public string define;
             }
         }
-
-
     }
 }
-

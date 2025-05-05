@@ -1,0 +1,24 @@
+{
+    "name": "UnityLogicGamer.YooAsset",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8f426ab7eb6659245adef86c1cc67f23",
+        "GUID:70a79fce3fc10d94d86f45a7e7e90a29",
+        "GUID:e34a5702dd353724aa315fb8011f08c3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.tuyoogame.yooasset",
+            "expression": "2.3",
+            "define": "YOO_ASSET_2_3_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}

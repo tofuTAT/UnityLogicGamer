@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UnityLogicGamer.Utilities
 {
@@ -28,6 +30,31 @@ namespace UnityLogicGamer.Utilities
             {
                 Object.Destroy(child.gameObject);
             }
+        }
+
+        /// <summary>
+        /// 获取或添加脚本
+        /// </summary>
+        /// <param name="obj">当前的 obj</param>
+        /// <param name="type">组件类型</param>
+        public static Component GetOrAddComponent(this GameObject obj,Type type)
+        {
+            var component= obj.GetComponent(type);
+            if (component==null)
+            {
+                component=  obj.AddComponent(type);
+            }
+
+            return component;
+        }
+        
+        /// <summary>
+        /// 获取或添加脚本
+        /// </summary>
+        /// <param name="obj">当前的 obj</param>
+        public static T GetOrAddComponent<T>(this GameObject obj) where T : Component
+        {
+            return obj.GetOrAddComponent(typeof(T)) as T;
         }
     }
 }

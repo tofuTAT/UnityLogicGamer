@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace UnityLogicGamer.Runtime.Debuggers.FsmDebug
 {
-    internal class FsmDebuggerAgent:MonoBehaviour
+    public class FsmDebuggerAgent:MonoBehaviour
     {
-        internal Fsm Fsm { get; set; }
+        public Fsm Fsm { get; set; }
     }
 }

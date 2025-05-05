@@ -2,11 +2,12 @@ using System;
 using LogicGamer.Core.Engine.Fsm;
 using UnityEditor;
 using UnityEngine;
+using UnityLogicGamer.Runtime.Debuggers.FsmDebug;
 
-namespace UnityLogicGamer.Runtime.Debuggers.FsmDebug
+namespace UnityLogicGamer.Editor.Debuggers.FsmDebug
 {
     [CustomEditor(typeof(FsmDebuggerAgent))]
-    public class FsmDebuggerAgentEditor : Editor
+    public class FsmDebuggerAgentEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -22,7 +23,7 @@ namespace UnityLogicGamer.Runtime.Debuggers.FsmDebug
             Repaint();
             // “只读”信息字段（不变灰）
             DrawReadOnlyField("状态机名称", fsm.Name);
-            DrawReadOnlyField("当前状态", fsm.CurrentState?.GetType().Name ?? "无");
+            DrawReadOnlyField("当前状态", fsm.CurrentStateBase?.GetType().Name ?? "无");
             DrawReadOnlyField("运行状态", fsm.Running ? "正在运行" : "未运行");
 
             TimeSpan duration = DateTime.Now - fsm.StateStartTime;

@@ -1,9 +1,13 @@
 {
-    "name": "UnityLogicGamer.Editor",
-    "rootNamespace": "UnityLogicGamer",
+    "name": "UnityLogicGamer.HybirdClr.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:8f426ab7eb6659245adef86c1cc67f23",
-        "GUID:70a79fce3fc10d94d86f45a7e7e90a29"
+        "GUID:70a79fce3fc10d94d86f45a7e7e90a29",
+        "GUID:2373f786d14518f44b0f475db77ba4de",
+        "GUID:13ba8ce62aa80c74598530029cb2d649",
+        "GUID:fb5b899f3458d644a8fcb5d48c44e570",
+        "GUID:1bd88a2813b400e468d70d7d4fe77e28"
     ],
     "includePlatforms": [
         "Editor"

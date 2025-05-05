@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LogicGamer.Core;
+using LogicGamer.Core.Engine;
 using LogicGamer.Core.Engine.Fsm;
-using LogicGamer.Core.Tool;
 using LogicGamer.Core.Tool.Log;
 using LogicGamer.Core.Utilities;
 using UnityEngine;
@@ -11,7 +12,7 @@ using UnityLogicGamer.Runtime.Procedure;
 
 namespace UnityLogicGamer.Runtime
 {
-    public class UnityLogicGamer : MonoBehaviour,ILog
+    public class UnityLogicGamer : UnitySingle<UnityLogicGamer>,ILog
     {
         [SerializeField] private LogLevel logLevel;
         [SerializeField] private bool debugMode;
@@ -19,22 +20,25 @@ namespace UnityLogicGamer.Runtime
         [SerializeField] private string startProcedure;
 
         public static Fsm Procedure { get; private set; }
-        public void Awake()
+        protected override void Awake()
         {
-            DontDestroyOnLoad(this);
+            base.Awake();
             Logic.Init(this);
         }
+
 
         private List<IDebug> _debugs = new List<IDebug>();
         public void Start()
         {
-            Logic.Start(new Dictionary<Type, Userdata>());
+            var dataMap = GetComponentsInChildren<IEngineData>(true)
+                .ToDictionary(e => e.Type, e => e.Data);
+            Logic.Start(dataMap);
             if (debugMode)
             {
                 var types =Utility.Type.GetTypesImplementing<IDebug>();
                 foreach (var item in types)
                 {
-                    IDebug debugger = null;
+                    IDebug debugger;
 
                     // 判断该类型是否继承自 MonoBehaviour
                     if (typeof(MonoBehaviour).IsAssignableFrom(item))
@@ -65,6 +69,7 @@ namespace UnityLogicGamer.Runtime
                 }
             }
             Procedure = Logic.GetEngine<FsmManager>().CreateFsm("GameProcedure");
+      
             Type start = null;
             foreach (var item in procedures)
             {
