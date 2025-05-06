@@ -1,5 +1,5 @@
 {
-    "name": "UnityLogicGamer.YooAsset",
+    "name": "UnityLogicGamer.YooAsset.Runtime",
     "rootNamespace": "",
     "references": [
         "GUID:8f426ab7eb6659245adef86c1cc67f23",
