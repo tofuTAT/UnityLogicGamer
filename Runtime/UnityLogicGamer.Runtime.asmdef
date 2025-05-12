@@ -2,7 +2,8 @@
     "name": "UnityLogicGamer.Runtime",
     "rootNamespace": "UnityLogicGamer",
     "references": [
-        "GUID:8f426ab7eb6659245adef86c1cc67f23"
+        "GUID:8f426ab7eb6659245adef86c1cc67f23",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

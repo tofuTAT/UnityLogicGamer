@@ -56,5 +56,33 @@ namespace UnityLogicGamer.Utilities
         {
             return obj.GetOrAddComponent(typeof(T)) as T;
         }
+        
+        /// <summary>
+        /// 将世界坐标转换为 UI 坐标。
+        /// </summary>
+        /// <param name="worldPos">要转换的世界坐标。</param>
+        /// <param name="uiElement">UI 元素的 RectTransform。</param>
+        /// <param name="mainCamera">用于计算世界到屏幕坐标的主要摄像机。</param>
+        /// <param name="uiCamera">用于计算屏幕坐标到 UI 坐标的 UI 摄像机。</param>
+        /// <returns>转换后的 UI 坐标。</returns>
+        public static Vector2 WorldPosToUI(Vector3 worldPos, RectTransform uiElement, Camera mainCamera, Camera uiCamera)
+        {
+            // 获取世界坐标在屏幕上的位置
+            Vector2 screenPosition = mainCamera.WorldToScreenPoint(worldPos);
+            // 将屏幕坐标转换为 UI 坐标
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                uiElement.parent as RectTransform,  // 使用 UI 元素的父级作为坐标系
+                screenPosition,                      // 屏幕坐标
+                uiCamera,                            // 渲染 UI 的摄像机
+                out Vector2 localPoint               // 输出的本地坐标
+            );
+
+            return localPoint; // 返回转换后的 UI 坐标
+        }
+        
+        public static Camera GetUICamera()
+        {
+           return GameObject.Find("GameManager/EntityManager/UICamera").GetComponent<Camera>();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using LogicGamer.Core;
 using LogicGamer.Core.Engine;
 using LogicGamer.Core.Engine.Entity;
@@ -15,8 +16,11 @@ namespace UnityLogicGamer.Runtime.Entity
 
         private GameObject adapterObj;
         public IEntityAdapter Adapter { get; private set; }
+
+        private bool show;
         public void OnReset(Userdata data)
         {
+            show = false;
             Args = data;
             switch (State)
             {
@@ -43,10 +47,11 @@ namespace UnityLogicGamer.Runtime.Entity
             }
         }
 
-        private void HandleOnLoadFinish(LoaderState arg1, GameObject asset)
+        private async void HandleOnLoadFinish(LoaderState arg1, GameObject asset)
         {
             if (arg1 == LoaderState.Success)
             {
+                await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
                 Result = this;
                 State = HandleState.Success;
                 //实例化
@@ -70,6 +75,8 @@ namespace UnityLogicGamer.Runtime.Entity
         {
             adapterObj.SetActive(true);
             Adapter.OnShow(Args);
+            afterShow?.Invoke(Adapter);
+            show = true;
         }
 
         public void OnReturn()
@@ -88,6 +95,22 @@ namespace UnityLogicGamer.Runtime.Entity
             {
                 Adapter?.OnUpdate(logicTime,deltaTime);
             }
+        }
+        private event Action<IEntityAdapter> afterShow;
+        public event Action<IEntityAdapter> AfterShow
+        {
+            add
+            {
+                if (show)
+                {
+                    value(Adapter);
+                }
+                else
+                {
+                    afterShow += value;
+                }
+            }
+            remove => afterShow -= value;
         }
 
 

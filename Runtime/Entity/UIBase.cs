@@ -1,4 +1,5 @@
-﻿using LogicGamer.Core.Tool;
+﻿using LogicGamer.Core.Engine.Entity;
+using LogicGamer.Core.Tool;
 using UnityEngine;
 
 namespace UnityLogicGamer.Runtime.Entity

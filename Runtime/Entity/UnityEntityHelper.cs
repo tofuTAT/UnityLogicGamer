@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using LogicGamer.Core.Engine;
 using LogicGamer.Core.Engine.Entity;
 using LogicGamer.Core.Tool;
@@ -18,6 +19,17 @@ namespace UnityLogicGamer.Runtime.Entity
         // 实体对象池实例（你自己实现的单例）
         public IObjectPool<IEntity> EntityPool => pool;
 
+        public object GetGroupRoot(string rootName)
+        {
+            if (rootName.StartsWith("ui", StringComparison.OrdinalIgnoreCase))
+            {
+                return uiRoot.transform.Find(rootName).gameObject;
+            }
+            else
+            {
+                return uiRoot.transform.Find(rootName).gameObject;
+            }
+        }
 
         // 设置实体分组行为（例如UI分组的特定处理）
         public void SetGroup(string group, IEntity entity)
