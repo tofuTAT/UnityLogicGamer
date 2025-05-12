@@ -6,10 +6,17 @@ namespace UnityLogicGamer.Runtime.Entity
 {
     public abstract class UIBase:MonoBehaviour, IEntityAdapter
     {
+        public IEntity Entity { get; private set; }
+
+        public void OnInit(IEntity entity)
+        {
+            Entity = entity;
+            OnInit();
+        }
         public virtual void OnInit()
         {
+            
         }
-
         public virtual void OnShow(Userdata data)
         {
         }

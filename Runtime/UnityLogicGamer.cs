@@ -124,7 +124,7 @@ namespace UnityLogicGamer.Runtime
 
         public void Print(LogLevel level, string value)
         {
-            if (level < logLevel)
+            if (logLevel < level)
                 return;
 
             var message = $"[{level}] {value}";

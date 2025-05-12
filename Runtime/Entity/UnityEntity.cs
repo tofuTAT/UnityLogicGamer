@@ -57,7 +57,7 @@ namespace UnityLogicGamer.Runtime.Entity
                 //实例化
                 adapterObj = Instantiate(asset,transform);
                 Adapter =  adapterObj.GetComponent<IEntityAdapter>();
-                Adapter.OnInit();
+                Adapter.OnInit(this);
                 OnCompleted?.Invoke(this);
                 if (gameObject.activeSelf)
                 {

@@ -31,6 +31,10 @@ namespace UnityLogicGamer.Runtime.Entity
             {
                 instance = CreateNewEntity(locationKey);
             }
+            else
+            {
+                list.Remove(instance);
+            }
             instance.OnReset(data);
             return instance;
         }
